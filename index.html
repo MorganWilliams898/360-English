@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishFlow - P001 Morning Routine & Small Business Life</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .section-content.expanded {
+            max-height: 10000px;
+            opacity: 1;
+        }
+        
+        .word-ielts-core { color: #2563eb; font-weight: 600; }
+        .word-ielts-adv { color: #9333ea; font-weight: 600; }
+        .word-work { color: #ea580c; font-weight: 600; }
+        .word-daily { color: #16a34a; font-weight: 600; }
+        .word-business { color: #0891b2; font-weight: 600; }
+        
+        .tag-ielts-core { background-color: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .tag-ielts-adv { background-color: #f3e8ff; color: #7c3aed; border: 1px solid #e9d5ff; }
+        .tag-work { background-color: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+        .tag-daily { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .tag-business { background-color: #cffafe; color: #0e7490; border: 1px solid #a5f3fc; }
+        
+        .dictation-input {
+            border-bottom: 2px solid #e2e8f0;
+            background: transparent;
+            text-align: center;
+            font-weight: 600;
+            color: #1e293b;
+            transition: all 0.3s;
+            min-width: 100px;
+            padding: 0 4px;
+            font-size: 1.125rem;
+        }
+        .dictation-input:focus {
+            border-bottom-color: #f97316;
+            outline: none;
+        }
+        .dictation-input.correct {
+            border-bottom-color: #22c55e;
+            color: #15803d;
+        }
+        .dictation-input.wrong {
+            border-bottom-color: #ef4444;
+            color: #dc2626;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, #fff7ed 0%, #ffedd5 100%);
+            border-left: 3px solid #f97316;
+            color: #c2410c;
+        }
+        
+        .mobile-overlay {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .audio-wave {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            height: 20px;
+        }
+        .audio-bar {
+            width: 3px;
+            background: #f97316;
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+        .audio-bar:nth-child(1) { animation-delay: 0s; height: 8px; }
+        .audio-bar:nth-child(2) { animation-delay: 0.1s; height: 14px; }
+        .audio-bar:nth-child(3) { animation-delay: 0.2s; height: 10px; }
+        .audio-bar:nth-child(4) { animation-delay: 0.3s; height: 16px; }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.8); }
+            50% { transform: scaleY(1.2); }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- 移动端顶部栏 -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-40 flex items-center justify-between px-4">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold">E</div>
+            <span class="font-bold text-lg text-slate-800">EnglishFlow</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <div class="mobile-overlay fixed inset-0 z-40 hidden lg:hidden" onclick="toggleMobileMenu()"></div>
+
+    <div class="flex min-h-screen pt-16 lg:pt-0">
+        <!-- 左侧导航栏 -->
+        <aside id="sidebar" class="fixed lg:sticky top-0 left-0 h-screen w-72 bg-white border-r border-slate-200 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+            <div class="p-6 border-b border-slate-100">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-200">E</div>
+                    <div>
+                        <h1 class="font-bold text-xl text-slate-800">EnglishFlow</h1>
+                        <p class="text-xs text-slate-500">365天系统训练</p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" placeholder="搜索课程..." 
+                           class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                           oninput="filterCourses()">
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-3" id="courseList">
+                <!-- 365期列表由JS生成 -->
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50">
+                <div class="flex items-center justify-between text-xs text-slate-500">
+                    <span>已完成: <strong class="text-orange-600">1/365</strong></span>
+                    <span>连续: <strong class="text-orange-600">1天</strong></span>
+                </div>
+                <div class="mt-2 h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-orange-500 to-red-500 w-[0.3%]"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 min-w-0 bg-slate-50">
+            <div class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-4 flex-1 min-w-0">
+                    <h2 id="currentCourseTitle" class="text-xl md:text-2xl font-bold text-slate-800 truncate">P001: Morning Routine & Small Business Life</h2>
+                    <span class="hidden sm:inline-flex px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium border border-orange-200 whitespace-nowrap">
+                        <i class="fas fa-fire mr-1"></i>今日课程
+                    </span>
+                </div>
+                <div class="flex gap-2 ml-4">
+                    <button onclick="previousCourse()" class="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition" title="上一课">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextCourse()" class="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition" title="下一课">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="max-w-5xl mx-auto p-4 md:p-6 space-y-6" id="contentArea">
+                <!-- 8大板块内容 -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // P001 真实课程内容数据 - 修复版
+        const courseData = {
+            "P001": {
+                id: "P001",
+                title: "Morning Routine & Small Business Life",
+                theme: "晨间日常与小创业者的心路",
+                level: "B1-C1",
+                duration: "3:02",
+                tags: ["日常生活", "晨间routine", "创业", "口语", "商务"],
+                videoNoSub: "https://files.catbox.moe/6vzsnb.mp4",
+                videoBilingual: "https://files.catbox.moe/dtsd56.mp4",
+                audio: {
+                    slow: "https://files.catbox.moe/hja2vz.MP3",
+                    medium: "https://files.catbox.moe/hja2vz.MP3",
+                    normal: "https://files.catbox.moe/hja2vz.MP3"
+                },
+                subtitles: [
+                    { time: "00:00", en: "Good morning, guys. It's Sid.", cn: "早上好，伙伴们。我是Sid。" },
+                    { time: "00:02", en: "I woke up just wanting to talk a lot today.", cn: "我今天醒来就是想多聊聊。" },
+                    { time: "00:05", en: "You already know what I'm about to do first—get coffee.", cn: "你们都知道我首先要做什么——去买咖啡。" },
+                    { time: "00:10", en: "The mornings are my favorite part of the day now, and they never used to be.", cn: "清晨现在是我一天中最喜欢的时段，以前可不是这样。" },
+                    { time: "00:45", en: "I feel like I have the most mental bandwidth and mental capacity in the mornings.", cn: "我觉得我在早上拥有最多的脑力带宽和脑力容量。" },
+                    { time: "00:51", en: "So I try to knock out the harder stuff first usually.", cn: "所以我通常先搞定最难的部分。" },
+                    { time: "00:53", en: "I also have been trying to drink less sugar.", cn: "我也一直在尝试少喝含糖饮料。" },
+                    { time: "00:58", en: "I have been getting like half vanilla sweetener instead of like a full vanilla sweetener.", cn: "我一直只加一半香草糖浆，而不是全份。" },
+                    { time: "01:03", en: "Leftovers for lunch with my current fixation meal.", cn: "午餐吃剩菜，这是我目前痴迷的餐食。" },
+                    { time: "01:07", en: "This is a sweet potato chicken bowl with tzatziki.", cn: "这是红薯鸡肉碗配希腊酸奶酱。" },
+                    { time: "01:38", en: "I've been really trying to widen my palette.", cn: "我真的在努力拓宽我的味觉范围。" },
+                    { time: "01:43", en: "So there's zucchini in this.", cn: "这里面有西葫芦。" },
+                    { time: "01:49", en: "I get overwhelmed when I have like a busy day with work.", cn: "当我工作繁忙时，我会感到不知所措。" },
+                    { time: "01:56", en: "I've been feeling sort of stagnant.", cn: "我一直感觉有点停滞不前。" },
+                    { time: "02:41", en: "My jewelry brand has kind of become therapeutic for me.", cn: "我的珠宝品牌对我来说已经变成了一种疗愈方式。" },
+                    { time: "03:02", en: "So when I started my brand...", cn: "所以当我创立我的品牌时..." }
+                ],
+                vocabulary: [
+                    { word: "bandwidth", ipa: "/ˈbændwɪdθ/", level: "C1", tag: "ielts-core", def: "（处理多项任务时的）脑力带宽，精力容量", network: "mental bandwidth / have the bandwidth / lack the bandwidth", example: "I feel like I have the most mental bandwidth in the mornings.", note: "原指网络带宽，比喻大脑处理信息的通道容量" },
+                    { word: "capacity", ipa: "/kəˈpæsəti/", level: "B2", tag: "ielts-core", def: "能力；容量；承受力", network: "mental capacity / full capacity / capacity for learning", example: "I have the most mental capacity in the mornings.", note: "表示能力时不可数，表示容量时可数" },
+                    { word: "knock out", ipa: "/nɒk aʊt/", level: "B2", tag: "work", def: "迅速完成；解决（任务）", network: "knock out a task / knock out emails / knock it out", example: "I try to knock out the harder stuff first usually.", note: "原指拳击击倒，引申为快速搞定" },
+                    { word: "fixation", ipa: "/fɪkˈseɪʃn/", level: "C1", tag: "ielts-adv", def: "痴迷；固着；强烈的依恋", network: "current fixation / unhealthy fixation / fixation on/with", example: "Leftovers for lunch with my current fixation meal.", note: "常作可数名词，可与 on/with 搭配" },
+                    { word: "palette", ipa: "/ˈpælət/", level: "C2", tag: "ielts-adv", def: "（饮食）味觉范围；鉴赏力", network: "widen/expand one's palette / sophisticated palette", example: "I've been really trying to widen my palette.", note: "原指画家调色板，引申为味觉的调色盘" },
+                    { word: "acquire", ipa: "/əˈkwaɪər/", level: "B2", tag: "ielts-core", def: "获得；习得；取得", network: "acquire a taste for / acquire skills / acquire knowledge", example: "I've acquired a taste for it.", note: "acquire a taste for 是固定习语，表示后天喜欢上" },
+                    { word: "overwhelmed", ipa: "/ˌəʊvərˈwelmd/", level: "B2", tag: "ielts-core", def: "不知所措的；难以承受的", network: "feel overwhelmed / overwhelmed by/with", example: "I get overwhelmed when I have a busy day.", note: "既可表负面（压力大），也可表正面（感动得）" },
+                    { word: "stagnant", ipa: "/ˈstæɡnənt/", level: "C1", tag: "ielts-adv", def: "停滞的；不流动的；不景气的", network: "stagnant water / stagnant economy / feel stagnant", example: "I've been feeling sort of stagnant.", note: "常作贬义，描述水/经济/个人发展" },
+                    { word: "fruition", ipa: "/fruˈɪʃn/", level: "C2", tag: "ielts-adv", def: "实现；结果；完成", network: "come to fruition / bring to fruition / reach fruition", example: "Nothing comes to fruition yet because it's a long process.", note: "几乎只用于 come to fruition / bring to fruition 搭配" },
+                    { word: "therapeutic", ipa: "/ˌθerəˈpjuːtɪk/", level: "C1", tag: "ielts-adv", def: "治疗的；有疗愈作用的", network: "therapeutic effect / therapeutic activity / therapeutic value", example: "My jewelry brand has kind of become therapeutic for me.", note: "可指医学治疗，也可指心理上的治愈感" },
+                    { word: "vanilla", ipa: "/vəˈnɪlə/", level: "B2", tag: "daily", def: "香草；香草精", network: "vanilla extract / vanilla ice cream / vanilla flavor", example: "I have been getting like half vanilla sweetener.", note: "也可作形容词表示普通的（plain vanilla）" },
+                    { word: "zucchini", ipa: "/zuˈkiːni/", level: "B2", tag: "daily", def: "西葫芦；美洲南瓜（英式英语 courgette）", network: "grilled zucchini / zucchini noodles / slice of zucchini", example: "So there's zucchini in this.", note: "意大利语来源，美式常用；英式用 courgette" },
+                    { word: "leftovers", ipa: "/ˈleftəʊvərz/", level: "B2", tag: "daily", def: "剩菜；剩饭；剩余物", network: "eat leftovers / heat up leftovers / leftovers for lunch", example: "Leftovers for lunch with my current fixation meal.", note: "常用复数形式 leftovers" },
+                    { word: "gonna", ipa: "/ˈɡənə/", level: "A2", tag: "daily", def: "将要（非正式口语）", network: "gonna do / gonna be / gonna get / gonna make", example: "So I'm gonna prep for that.", note: "口语中 going to 的连读缩略；正式场合用 going to" },
+                    { word: "off the hook", ipa: "/ɒf ðə hʊk/", level: "C1", tag: "work", def: "脱身了；摆脱责任；解脱了", network: "off the hook / get off the hook / let someone off the hook", example: "So I'm off the hook.", note: "习语，字面意思脱离钩子" },
+                    { word: "throw on", ipa: "/θrəʊ ɒn/", level: "B2", tag: "work", def: "随手打开/播放；匆忙穿上", network: "throw on a podcast / throw on some music / throw on a jacket", example: "Sometimes I throw a podcast on.", note: "比 put on 更随意，强调随手/不经意" }
+                ],
+                sentences: [
+                    {
+                        structure: "I woke up just wanting to...",
+                        meaning: "我今天醒来就是想...",
+                        original: "I woke up just wanting to talk a lot today",
+                        time: "00:10",
+                        basic: "I woke up wanting to stay in bed.",
+                        advanced: "I woke up wanting to get things done.",
+                        high: "I woke up wanting to make a difference today.",
+                        mistake: "I wake up just wanting (时态错误)",
+                        correct: "I woke up just wanting to..."
+                    },
+                    {
+                        structure: "I feel like I have the most...",
+                        meaning: "我觉得我在...拥有最多的...",
+                        original: "I feel like I have the most mental bandwidth",
+                        time: "00:45",
+                        basic: "I feel like I have the most energy in the mornings.",
+                        advanced: "I feel like I have the most motivation at the beginning of the month.",
+                        high: "I feel like I have the most bandwidth when I'm well-rested.",
+                        mistake: "I feel like I has the most (主谓一致错误)",
+                        correct: "I feel like I have the most..."
+                    },
+                    {
+                        structure: "I try to knock out... first usually",
+                        meaning: "我通常先努力完成...",
+                        original: "I try to knock out the harder stuff first usually",
+                        time: "00:51",
+                        basic: "I try to check emails first usually.",
+                        advanced: "I try to tackle the hardest tasks first usually.",
+                        high: "I try to prioritize what's urgent first usually.",
+                        mistake: "I try to knock out the harder stuff first usually (语序生硬)",
+                        correct: "I usually try to knock out the harder stuff first"
+                    },
+                    {
+                        structure: "I've been trying to...",
+                        meaning: "我一直在尝试...",
+                        original: "I've been really trying to widen my palette",
+                        time: "01:38",
+                        basic: "I've been trying to wake up earlier.",
+                        advanced: "I've been trying to stick to a budget.",
+                        high: "I've been trying to maintain a better work-life balance.",
+                        mistake: "I have been try to (动词形式错误)",
+                        correct: "I've been trying to..."
+                    },
+                    {
+                        structure: "...instead of...",
+                        meaning: "...而不是...",
+                        original: "half vanilla sweetener instead of like a full vanilla sweetener",
+                        time: "00:58",
+                        basic: "I drink tea instead of coffee.",
+                        advanced: "I work from home instead of going to the office.",
+                        high: "I focus on progress instead of perfection.",
+                        mistake: "instead to (介词错误)",
+                        correct: "instead of + n./v.-ing"
+                    },
+                    {
+                        structure: "...when I have...",
+                        meaning: "当我有...的时候",
+                        original: "I get overwhelmed when I have like a busy day",
+                        time: "01:49",
+                        basic: "I feel happy when I have free time.",
+                        advanced: "I work best when I have a deadline.",
+                        high: "I feel most productive when I have a clear goal.",
+                        mistake: "when I has (主谓一致)",
+                        correct: "when I have..."
+                    },
+                    {
+                        structure: "It's like one of those things when...",
+                        meaning: "这就像那种...的事情",
+                        original: "It's like one of those things when you put so much work into something",
+                        time: "01:56",
+                        basic: "It's like one of those things when you're just tired.",
+                        advanced: "It's like one of those things when nothing goes right.",
+                        high: "It's like one of those things when you're working hard behind the scenes but no one notices.",
+                        mistake: "It's like one of those things when... (缺少主句)",
+                        correct: "It's like one of those things when + 从句"
+                    },
+                    {
+                        structure: "...has become...for me",
+                        meaning: "...对我来说已经变得...",
+                        original: "My jewelry brand has kind of become therapeutic for me",
+                        time: "02:41",
+                        basic: "Yoga has become important for me.",
+                        advanced: "Running has become my therapy for me.",
+                        high: "Building this brand has become deeply personal for me.",
+                        mistake: "...has became... (动词形式错误)",
+                        correct: "...has become..."
+                    }
+                ],
+                chineseText: `早间规划与咖啡时光
+
+Good morning, guys. It's Sid. I woke up just wanting to talk a lot today. You already know what I'm about to do first—get coffee. So...
+
+早上好，伙伴们。我是Sid。我今天醒来就是想多聊聊。你们都知道我首先要做什么——去买咖啡。所以……
+
+The mornings are my favorite part of the day now, and they never used to be. I feel like I have the most mental bandwidth and mental capacity in the mornings, so I try to knock out the harder stuff first usually.
+
+清晨现在是我一天中最喜欢的时段，以前可不是这样。我觉得我在早上拥有最多的脑力带宽和脑力容量，所以我通常先搞定最难的部分。
+
+我也一直在尝试少喝含糖饮料。我一直只加一半vanilla糖浆，而不是全份。
+
+Leftovers for lunch with my current fixation meal. This is a sweet potato chicken bowl with tzatziki. So good. My roommate got me on this. I've probably talked about this way too many times on here so I'm sorry. It's so good and I've been really trying to widen my palette.
+
+午餐吃leftovers，这是我目前fixation的餐食。这是红薯鸡肉碗配tzatziki。太好吃了。我的室友让我迷上了这个。我可能已经在这里谈论过太多次了，所以抱歉。它太好吃了，而且我真的在尝试拓宽我的palette。
+
+So there's zucchini in this. I used to not like zucchini but after eating this a few times I've acquired a taste for it. I get overwhelmed when I have like a busy day with work and leftovers are just the easiest for me.
+
+这里面有zucchini。我以前不喜欢西葫芦，但吃了几次这个之后，我已经acquired a taste了。当我工作繁忙时，我会感到overwhelmed，而leftovers对我来说是最简单的选择。
+
+创业心路与低谷时刻
+
+I've been feeling sort of stagnant and it's like one of those things when you put so much work into something and you do all this work behind the scenes that no one sees and then like nothing comes to fruition yet because it's a long process. I'm really referring to my jewelry brand and how I've kind of had some struggles as like a small business owner. Of course there's gonna be like ups and downs. Just one of those days.
+
+我一直感觉有点stagnant，而且这就像那种当你投入很多精力做某事，然后你做所有这些behind the scenes没人看到的工作，却还没有任何事情come to fruition，因为这是一个漫长的过程。我真正指的是我的jewelry brand，以及我作为小企业owner经历的一些struggles。当然会有ups and downs。只是那种日子之一。
+
+So it's always worth it in the end. Next meeting is in five minutes, so I'm gonna prep for that.
+
+所以最终总是值得的。下一个会议在五分钟后，所以我gonna为此做准备。
+
+Um... whoa, I thought they were knocking at my door but turns out it was from my neighbors. So I'm off the hook. Good. How are you? Nice to meet you.
+
+嗯……哇，我以为他们在敲我的门，但turns out是来自我的邻居。所以我off the hook了。很好。你好？很高兴见到你。
+
+Packaging orders for Ophelia. My jewelry brand has kind of become therapeutic for me. Sometimes I have help with it, sometimes I just like do it on my own. Which right now I'm just doing a couple orders.
+
+为Ophelia包装订单。我的珠宝品牌对我来说已经变得有点therapeutic了。有时我有人帮忙，有时我只是on my own做。现在我只在处理几个订单。
+
+Sometimes I throw a podcast on, sometimes I put music on, sometimes I just listen to nothing. So we got new order insert cards. When I open a package, I want like a full experience when I order from a brand, so when I started my brand...
+
+有时我会throw a podcast on，有时我放音乐，有时我只是什么都不听。所以我们有了新order insert cards。当我打开包裹时，我希望有完整的体验，当我从品牌订购时，所以当我开始我的品牌……`,
+                englishText: `Morning Routine & Small Business Life
+
+Morning Rituals and Mental Clarity
+
+Good morning, everyone. I'm Sid. Today I woke up with an unusual urge to share my thoughts. As you might expect, my first priority is to grab coffee.
+
+Mornings have unexpectedly become my favorite part of the day, which wasn't always the case. I find that I possess the greatest mental bandwidth and cognitive capacity during these early hours; consequently, I typically tackle the most challenging tasks first. Furthermore, I've been making a conscious effort to reduce my sugar intake—opting for half vanilla sweetener rather than the full amount.
+
+Culinary Habits and Expanding Tastes
+
+My lunch consists of leftovers from my current culinary obsession: a sweet potato chicken bowl accompanied by tzatziki sauce. This particular dish is absolutely delightful. My roommate introduced me to this combination, and I must apologize for mentioning it so frequently—it's simply that exceptional. Lately, I've been genuinely committed to broadening my gastronomic palette.
+
+The dish contains zucchini, a vegetable I previously disliked. However, after several encounters with this preparation, I've acquired a taste for it. During particularly demanding workdays, I tend to feel overwhelmed; under such circumstances, leftovers provide the most convenient solution.
+
+Entrepreneurial Struggles and Emotional Resilience
+
+Recently, I've experienced a sense of stagnation—one of those periods where you invest considerable effort into something, laboring behind the scenes without recognition, yet nothing comes to fruition due to the lengthy nature of the process. I'm specifically referring to my jewelry enterprise, Ophelia, and the various struggles I've encountered as a small business proprietor. Naturally, there will be inevitable ups and downs—today merely represents one of those challenging moments.
+
+Nevertheless, the journey ultimately proves worthwhile. My next appointment commences in five minutes, so I must prepare accordingly.
+
+Unexpected Interruptions and Packaging Rituals
+
+Wait—I initially believed someone was at my door, but it turns out the sound originated from my neighbors. Consequently, I'm off the hook. Excellent. How are you? Pleased to make your acquaintance.
+
+Regarding order fulfillment for Ophelia, this activity has evolved into something genuinely therapeutic for me. Occasionally I receive assistance, though I frequently handle the packaging independently. At present, I'm processing just a few orders.
+
+Sometimes I play a podcast in the background; other times I choose music; occasionally I prefer complete silence. We've recently introduced new order insert cards. When I personally open a package from a brand, I desire a comprehensive unboxing experience—a standard I established when launching my own brand.`,
+                dictation: {
+                    basic: [
+                        { text: "Good", answer: "morning", hint: "早上好" },
+                        { text: "I", answer: "woke", hint: "醒来（过去式）" },
+                        { text: "get", answer: "coffee", hint: "咖啡" },
+                        { text: "favorite part of the", answer: "day", hint: "一天" },
+                        { text: "try to", answer: "knock", hint: "敲击/完成" },
+                        { text: "drink less", answer: "sugar", hint: "糖" }
+                    ],
+                    advanced: [
+                        { text: "mental", answer: "bandwidth", hint: "带宽" },
+                        { text: "mental", answer: "capacity", hint: "容量/能力" },
+                        { text: "knock out the harder", answer: "stuff", hint: "东西/任务" },
+                        { text: "vanilla", answer: "sweetener", hint: "甜味剂" },
+                        { text: "current", answer: "fixation", hint: "痴迷" },
+                        { text: "widen my", answer: "palette", hint: "味觉范围" },
+                        { text: "acquired a", answer: "taste", hint: "口味/品味" },
+                        { text: "get", answer: "overwhelmed", hint: "不知所措" }
+                    ],
+                    challenge: [
+                        { text: "feeling sort of", answer: "stagnant", hint: "停滞的" },
+                        { text: "comes to", answer: "fruition", hint: "实现/结果" },
+                        { text: "jewelry", answer: "brand", hint: "品牌" },
+                        { text: "become", answer: "therapeutic", hint: "治疗的/疗愈的" },
+                        { text: "off the", answer: "hook", hint: "钩子" },
+                        { text: "throw a", answer: "podcast", hint: "播客" },
+                        { text: "order", answer: "insert", hint: "插入物" },
+                        { text: "full", answer: "experience", hint: "体验" }
+                    ]
+                }
+            }
+        };
+
+        let currentCourseId = "P001";
+        let expandedSections = new Set(['section-video', 'section-vocab']);
+
+        function init() {
+            try {
+                renderCourseList();
+                loadCourse(currentCourseId);
+                console.log("Initialization successful");
+            } catch (error) {
+                console.error("Initialization error:", error);
+                document.getElementById('contentArea').innerHTML = '<div class="p-8 text-center text-red-500">加载失败，请刷新页面重试</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        function renderCourseList() {
+            const list = document.getElementById('courseList');
+            if (!list) return;
+            
+            let html = '';
+            
+            for (let i = 1; i <= 365; i++) {
+                const id = `P${String(i).padStart(3, '0')}`;
+                const isActive = id === currentCourseId;
+                const isDone = i === 1;
+                
+                html += `
+                    <div class="nav-item ${isActive ? 'active' : ''} p-3 rounded-lg cursor-pointer mb-1 transition-all hover:bg-slate-50" 
+                         onclick="loadCourse('${id}')" data-id="${id}">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-mono text-xs ${isActive ? 'text-orange-600 font-bold' : 'text-slate-400'}">${id}</span>
+                            ${isDone ? '<i class="fas fa-check-circle text-green-500 text-xs"></i>' : ''}
+                        </div>
+                        <div class="text-sm font-medium ${isActive ? 'text-slate-900' : 'text-slate-600'} line-clamp-1">
+                            ${i === 1 ? 'Morning Routine & Small...' : `Daily Vlog ${id}`}
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1 flex items-center gap-2">
+                            <span><i class="far fa-clock mr-1"></i>3:02</span>
+                            <span class="px-1.5 py-0.5 bg-slate-100 rounded text-slate-500">B1-C1</span>
+                        </div>
+                    </div>
+                `;
+            }
+            list.innerHTML = html;
+        }
+
+        function filterCourses() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.nav-item');
+            
+            items.forEach(item => {
+                const id = item.dataset.id.toLowerCase();
+                const title = item.textContent.toLowerCase();
+                if (id.includes(keyword) || title.includes(keyword)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function loadCourse(id) {
+            try {
+                currentCourseId = id;
+                const data = courseData[id] || courseData["P001"];
+                
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    el.classList.remove('active');
+                    if (el.dataset.id === id) el.classList.add('active');
+                });
+                
+                const titleEl = document.getElementById('currentCourseTitle');
+                if (titleEl) titleEl.textContent = `${id}: ${data.title}`;
+                
+                renderContent(data);
+                
+                if (window.innerWidth < 1024) {
+                    const sidebar = document.getElementById('sidebar');
+                    const overlay = document.querySelector('.mobile-overlay');
+                    if (sidebar) sidebar.classList.add('-translate-x-full');
+                    if (overlay) overlay.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error("Load course error:", error);
+            }
+        }
+
+        function renderContent(data) {
+            const container = document.getElementById('contentArea');
+            if (!container) return;
+            
+            container.innerHTML = `
+                <!-- 1. 无字幕视频 -->
+                ${renderSection('section-video', '1', '无字幕视频', 'fas fa-eye-slash', '听力输入·语感培养', 
+                    '整体感知视频内容，培养英语语感，适应语速和口音', 
+                    '第一遍盲听，不暂停，关注大意和情绪，记录关键词',
+                    `<div class="aspect-video bg-slate-900 rounded-xl overflow-hidden relative group">
+                        <video controls class="w-full h-full" poster="">
+                            <source src="${data.videoNoSub}" type="video/mp4">
+                        </video>
+                        <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm backdrop-blur">
+                            <i class="fas fa-closed-captioning-slash mr-1"></i>无字幕模式
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-3">
+                        <button onclick="playVideo()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-medium transition flex items-center justify-center gap-2">
+                            <i class="fas fa-play"></i> 开始盲听训练
+                        </button>
+                        <button onclick="toggleSection('section-subtitle')" class="px-4 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition">
+                            跳到字幕版
+                        </button>
+                    </div>`
+                )}
+
+                <!-- 2. 变速音频 -->
+                ${renderSection('section-audio', '2', '变速音频', 'fas fa-wave-square', '语音训练·精准听音', 
+                    '适应不同语速，精准听清每个音节，训练连读弱读识别',
+                    '0.6x抓发音细节，0.8x跟读模仿，1.0x检验理解',
+                    `<div class="bg-white border border-slate-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="audio-wave" id="audioWave" style="opacity: 0;">
+                                <div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div>
+                            </div>
+                            <span class="text-sm text-slate-500" id="audioStatus">准备就绪</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-3 mb-4">
+                            <button onclick="playAudio('${data.audio.slow}', 0.6, this)" class="speed-btn p-4 border-2 border-slate-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition group text-center" data-speed="0.6">
+                                <div class="text-2xl font-bold text-slate-700 group-hover:text-orange-600 mb-1">0.6x</div>
+                                <div class="text-xs text-slate-500">慢速精听</div>
+                            </button>
+                            <button onclick="playAudio('${data.audio.medium}', 0.8, this)" class="speed-btn p-4 border-2 border-slate-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition group text-center" data-speed="0.8">
+                                <div class="text-2xl font-bold text-slate-700 group-hover:text-orange-600 mb-1">0.8x</div>
+                                <div class="text-xs text-slate-500">中速跟读</div>
+                            </button>
+                            <button onclick="playAudio('${data.audio.normal}', 1.0, this)" class="speed-btn p-4 border-2 border-orange-500 bg-orange-50 rounded-xl transition group text-center ring-2 ring-orange-200" data-speed="1.0">
+                                <div class="text-2xl font-bold text-orange-600 mb-1">1.0x</div>
+                                <div class="text-xs text-orange-600">原速检验</div>
+                            </button>
+                        </div>
+                        
+                        <audio id="mainAudio" controls class="w-full hidden" onplay="showWave()" onpause="hideWave()">
+                            <source src="${data.audio.normal}" type="audio/mpeg">
+                        </audio>
+                        
+                        <div class="flex items-center gap-2 text-sm text-slate-500 mt-4">
+                            <i class="fas fa-lightbulb text-yellow-500"></i>
+                            <span>建议：先用0.6x抓发音细节，再用1.0x盲听检验</span>
+                        </div>
+                    </div>`
+                )}
+
+                <!-- 3. 双语字幕 -->
+                ${renderSection('section-subtitle', '3', '双语字幕', 'fas fa-closed-captioning', '理解验证·逐句对照', 
+                    '准确理解每句话的意思，建立英汉对应关系',
+                    '逐句对照学习，标记生词，理解句子结构',
+                    `<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="aspect-video bg-slate-900 relative">
+                            <video controls class="w-full h-full">
+                                <source src="${data.videoBilingual}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="max-h-96 overflow-y-auto custom-scrollbar">
+                            ${data.subtitles.map((sub, idx) => `
+                                <div class="flex items-start gap-4 p-4 hover:bg-slate-50 border-b border-slate-100 transition cursor-pointer group">
+                                    <span class="text-xs font-mono text-slate-400 mt-1">${sub.time}</span>
+                                    <div class="flex-1">
+                                        <p class="text-slate-800 font-medium mb-1 group-hover:text-orange-600 transition">${highlightVocabInText(sub.en)}</p>
+                                        <p class="text-slate-500 text-sm">${sub.cn}</p>
+                                    </div>
+                                    <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-orange-500 transition" onclick="speak('${sub.en.replace(/'/g, "\\'")}')" title="朗读">
+                                        <i class="fas fa-volume-up"></i>
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`
+                )}
+
+                <!-- 4. 重点词汇 -->
+                ${renderSection('section-vocab', '4', '重点词汇', 'fas fa-spell-check', '词汇积累·深度掌握', 
+                    '掌握16个核心词汇的音标、释义、用法和搭配',
+                    '按CEFR分级学习，先掌握蓝色核心词，再进阶紫色高级词',
+                    renderVocabulary(data.vocabulary)
+                )}
+
+                <!-- 5. 句式表达 -->
+                ${renderSection('section-sentences', '5', '句式表达', 'fas fa-quote-left', '地道表达·场景应用', 
+                    '掌握8个核心句型，能进行场景替换和输出',
+                    '先模仿原句，再进行场景替换练习，录音对比',
+                    renderSentences(data.sentences)
+                )}
+
+                <!-- 6. 中英文本 -->
+                ${renderSection('section-chinese', '6', '中英文本', 'fas fa-language', '完整理解·翻译对照', 
+                    '完整理解全文内容，对照中文加深理解',
+                    '用于整体理解，重点查看难句的翻译处理',
+                    `<div class="bg-white border border-slate-200 rounded-xl p-6 md:p-8 leading-loose text-slate-700 space-y-4 text-base md:text-lg">
+                        ${data.chineseText.split('\n\n').map(para => `<p>${highlightVocabInChinese(para)}</p>`).join('')}
+                    </div>`
+                )}
+
+                <!-- 7. 纯英文本 -->
+                ${renderSection('section-english', '7', '纯英文本', 'fas fa-font', '英语思维·脱离中文', 
+                    '培养英语直觉，用英语直接理解和表达',
+                    '用于复述练习，尝试用英语总结段落大意',
+                    `<div class="bg-white border border-slate-200 rounded-xl p-6 md:p-8 leading-loose text-slate-800 text-base md:text-lg font-medium space-y-4">
+                        ${data.englishText.split('\n\n').map(para => `<p>${highlightVocabInText(para)}</p>`).join('')}
+                    </div>`
+                )}
+
+                <!-- 8. 听写填空 -->
+                ${renderSection('section-dictation', '8', '听写填空', 'fas fa-pen-fancy', '听力检验·拼写强化', 
+                    '检验听力理解准确度，强化词汇拼写记忆',
+                    '词汇预扫→分段听写→对照答案→重听纠错',
+                    renderDictation(data.dictation)
+                )}
+            `;
+            
+            // 恢复折叠状态
+            setTimeout(() => {
+                expandedSections.forEach(id => {
+                    const content = document.getElementById(id);
+                    const icon = document.getElementById(`icon-${id}`);
+                    if (content) {
+                        content.classList.add('expanded');
+                        content.style.maxHeight = '10000px';
+                    }
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                });
+            }, 100);
+        }
+
+        function renderSection(id, num, title, icon, goal, desc, tip, content) {
+            const isExpanded = expandedSections.has(id);
+            return `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-6" id="card-${id}">
+                    <div class="p-4 md:p-6 cursor-pointer hover:bg-slate-50 transition flex items-center justify-between group" onclick="toggleSection('${id}')">
+                        <div class="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl flex items-center justify-center text-orange-600 text-lg md:text-xl border border-orange-200 group-hover:scale-110 transition flex-shrink-0">
+                                <i class="${icon}"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-2 mb-1 flex-wrap">
+                                    <span class="text-xs font-bold text-orange-600 bg-orange-100 px-2 py-0.5 rounded">步骤 ${num}</span>
+                                    <h3 class="text-base md:text-lg font-bold text-slate-800 truncate">${title}</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 font-medium truncate">${goal}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 ml-2">
+                            <div class="hidden lg:block text-right text-xs text-slate-400 max-w-[200px]">
+                                <div class="font-medium text-slate-600 mb-1 line-clamp-1">${desc}</div>
+                                <div class="line-clamp-1">💡 ${tip}</div>
+                            </div>
+                            <i id="icon-${id}" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="${id}" class="section-content ${isExpanded ? 'expanded' : ''}" style="${isExpanded ? 'max-height: 10000px' : ''}">
+                        <div class="px-4 md:px-6 pb-6 border-t border-slate-100 pt-4">
+                            <div class="lg:hidden mb-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-800">
+                                <strong>${desc}</strong><br>
+                                <span class="text-blue-600">💡 ${tip}</span>
+                            </div>
+                            ${content}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderVocabulary(vocabList) {
+            const tags = {
+                'ielts-core': { class: 'tag-ielts-core', label: '雅思核心' },
+                'ielts-adv': { class: 'tag-ielts-adv', label: '雅思高级' },
+                'work': { class: 'tag-work', label: '职场高频' },
+                'daily': { class: 'tag-daily', label: '日常词汇' },
+                'business': { class: 'tag-business', label: '商务术语' }
+            };
+            
+            const cards = vocabList.map((vocab, idx) => {
+                const tag = tags[vocab.tag] || tags['daily'];
+                return `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 md:p-5 hover:shadow-lg hover:border-orange-300 transition group">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-lg md:text-xl font-bold text-slate-800 group-hover:text-orange-600 transition truncate">${vocab.word}</h4>
+                                <p class="text-sm text-slate-500 font-mono mt-1">${vocab.ipa}</p>
+                            </div>
+                            <div class="flex flex-col items-end gap-1 ml-2">
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs font-medium">${vocab.level}</span>
+                                <span class="px-2 py-1 rounded text-xs font-medium ${tag.class}">${tag.label}</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-700 mb-2 font-medium text-sm md:text-base">${vocab.def}</p>
+                        <div class="text-sm text-slate-600 mb-3 bg-slate-50 p-2 rounded text-xs md:text-sm">
+                            <span class="text-slate-400">搭配：</span>${vocab.network}
+                        </div>
+                        <div class="text-sm italic text-slate-600 border-l-3 border-orange-400 pl-3 mb-3 text-xs md:text-sm">
+                            "${vocab.example}"
+                        </div>
+                        <div class="text-xs text-slate-500 bg-blue-50 p-2 rounded mb-3">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-1"></i>${vocab.note}
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="speak('${vocab.word}')" class="flex-1 py-2 bg-white border border-slate-200 rounded-lg hover:bg-orange-50 hover:border-orange-300 transition text-sm flex items-center justify-center gap-2 text-xs md:text-sm">
+                                <i class="fas fa-volume-up text-orange-500"></i> 发音
+                            </button>
+                            <button class="flex-1 py-2 bg-white border border-slate-200 rounded-lg hover:bg-orange-50 hover:border-orange-300 transition text-sm flex items-center justify-center gap-2 text-xs md:text-sm">
+                                <i class="fas fa-plus text-orange-500"></i> 生词本
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            return `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${cards}
+                </div>
+                <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-700 mb-3">词汇分级统计</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                            <div class="text-2xl font-bold text-blue-600">7</div>
+                            <div class="text-xs text-blue-700">雅思核心词</div>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                            <div class="text-2xl font-bold text-purple-600">5</div>
+                            <div class="text-xs text-purple-700">雅思高级词</div>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded-lg border border-orange-100">
+                            <div class="text-2xl font-bold text-orange-600">3</div>
+                            <div class="text-xs text-orange-700">职场高频词</div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg border border-green-100">
+                            <div class="text-2xl font-bold text-green-600">1</div>
+                            <div class="text-xs text-green-700">日常词汇</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSentences(sentences) {
+            return `<div class="space-y-4">
+                ${sentences.map((sent, idx) => `
+                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                        <div class="p-4 md:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="w-7 h-7 md:w-8 md:h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">${idx + 1}</span>
+                                <h4 class="font-bold text-slate-800 text-sm md:text-base">${sent.structure}</h4>
+                                <span class="text-xs text-slate-400 ml-auto whitespace-nowrap"><i class="fas fa-clock mr-1"></i>${sent.time}</span>
+                            </div>
+                            <p class="text-slate-500 text-xs md:text-sm ml-10 md:ml-11">${sent.meaning}</p>
+                        </div>
+                        <div class="p-4 md:p-5">
+                            <div class="mb-4 p-3 md:p-4 bg-orange-50 border-l-4 border-orange-500 rounded-r-lg">
+                                <p class="text-base md:text-lg font-medium text-slate-800 mb-1">"${sent.original}"</p>
+                                <button onclick="speak('${sent.original.replace(/'/g, "\\'")}')" class="text-xs text-orange-600 hover:text-orange-700 flex items-center gap-1 mt-2">
+                                    <i class="fas fa-play-circle"></i> 播放原句
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                    <div class="text-xs text-blue-600 font-bold mb-1">基础版</div>
+                                    <div class="text-sm text-slate-700">${sent.basic}</div>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-100">
+                                    <div class="text-xs text-purple-600 font-bold mb-1">进阶版</div>
+                                    <div class="text-sm text-slate-700">${sent.advanced}</div>
+                                </div>
+                                <div class="p-3 bg-orange-50 rounded-lg border border-orange-100">
+                                    <div class="text-xs text-orange-600 font-bold mb-1">高阶版</div>
+                                    <div class="text-sm text-slate-700">${sent.high}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-2 text-sm bg-red-50 p-3 rounded-lg border border-red-100">
+                                <i class="fas fa-exclamation-triangle text-red-500 mt-0.5 flex-shrink-0"></i>
+                                <div class="text-xs md:text-sm">
+                                    <span class="font-bold text-red-700">常见错误：</span>
+                                    <span class="text-red-600 line-through">${sent.mistake}</span>
+                                    <i class="fas fa-arrow-right mx-1 text-slate-400"></i>
+                                    <span class="text-green-600 font-medium">${sent.correct}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 flex flex-wrap gap-4 pt-4 border-t border-slate-100">
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-orange-600 transition">
+                                    <input type="checkbox" class="rounded text-orange-500 focus:ring-orange-500 w-4 h-4"> 听写练习
+                                </label>
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-orange-600 transition">
+                                    <input type="checkbox" class="rounded text-orange-500 focus:ring-orange-500 w-4 h-4"> 造句练习
+                                </label>
+                                <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-orange-600 transition">
+                                    <input type="checkbox" class="rounded text-orange-500 focus:ring-orange-500 w-4 h-4"> 场景替换
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>`;
+        }
+
+        function renderDictation(dictation) {
+            const renderLevel = (items, level) => {
+                return items.map((item, idx) => `
+                    <div class="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-orange-300 transition">
+                        <span class="flex-shrink-0 w-6 h-6 bg-white border border-slate-300 rounded-full flex items-center justify-center text-xs font-bold text-slate-500">${idx + 1}</span>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap text-base md:text-lg">
+                                <span class="text-slate-800">${item.text}</span>
+                                <input type="text" 
+                                       class="dictation-input w-24 md:w-32" 
+                                       data-answer="${item.answer.toLowerCase()}"
+                                       placeholder="${'·'.repeat(Math.min(item.answer.length, 8))}"
+                                       autocomplete="off">
+                                <button onclick="speak('${item.answer}')" class="text-slate-400 hover:text-orange-500 transition ml-1">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                            <div class="check-result mt-2 hidden">
+                                <span class="correct-answer text-green-600 text-sm font-medium hidden">
+                                    <i class="fas fa-check-circle mr-1"></i>正确！
+                                </span>
+                                <span class="wrong-answer text-red-600 text-sm hidden">
+                                    <i class="fas fa-times-circle mr-1"></i>正确答案：<span class="font-bold">${item.answer}</span>
+                                    <span class="text-slate-500 ml-2 text-xs">(${item.hint})</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            };
+            
+            return `
+                <div class="space-y-6">
+                    <div class="flex gap-2 bg-slate-100 p-1 rounded-lg w-fit">
+                        <button onclick="switchDictation('basic')" class="dictation-tab px-3 md:px-4 py-2 rounded-md text-sm font-medium bg-white text-orange-600 shadow-sm transition" data-level="basic">基础版</button>
+                        <button onclick="switchDictation('advanced')" class="dictation-tab px-3 md:px-4 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 transition" data-level="advanced">进阶版</button>
+                        <button onclick="switchDictation('challenge')" class="dictation-tab px-3 md:px-4 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 transition" data-level="challenge">挑战版</button>
+                    </div>
+                    
+                    <div id="dictation-basic" class="dictation-content space-y-3">
+                        ${renderLevel(dictation.basic, 'basic')}
+                    </div>
+                    
+                    <div id="dictation-advanced" class="dictation-content hidden space-y-3">
+                        ${renderLevel(dictation.advanced, 'advanced')}
+                    </div>
+                    
+                    <div id="dictation-challenge" class="dictation-content hidden space-y-3">
+                        ${renderLevel(dictation.challenge, 'challenge')}
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-200">
+                        <button onclick="checkAnswers()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-medium transition shadow-md shadow-orange-200">
+                            <i class="fas fa-check-circle mr-2"></i>检查答案
+                        </button>
+                        <button onclick="showAnswers()" class="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition text-slate-700">
+                            <i class="fas fa-eye mr-2"></i>查看答案
+                        </button>
+                        <button onclick="resetDictation()" class="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition text-slate-700">
+                            <i class="fas fa-redo mr-2"></i>重置
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleSection(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (!content || !icon) return;
+            
+            if (expandedSections.has(id)) {
+                expandedSections.delete(id);
+                content.classList.remove('expanded');
+                content.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                expandedSections.add(id);
+                content.classList.add('expanded');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function playAudio(src, speed, btn) {
+            const audio = document.getElementById('mainAudio');
+            if (!audio) return;
+            
+            document.querySelectorAll('.speed-btn').forEach(b => {
+                b.classList.remove('border-orange-500', 'bg-orange-50', 'ring-2', 'ring-orange-200');
+                b.classList.add('border-slate-200');
+                const textDiv = b.querySelector('div:first-child');
+                if (textDiv) {
+                    textDiv.classList.remove('text-orange-600');
+                    textDiv.classList.add('text-slate-700');
+                }
+            });
+            
+            btn.classList.remove('border-slate-200');
+            btn.classList.add('border-orange-500', 'bg-orange-50', 'ring-2', 'ring-orange-200');
+            const btnText = btn.querySelector('div:first-child');
+            if (btnText) {
+                btnText.classList.remove('text-slate-700');
+                btnText.classList.add('text-orange-600');
+            }
+            
+            if (audio.src !== src || audio.paused) {
+                audio.src = src;
+                audio.playbackRate = speed;
+                audio.play();
+                const status = document.getElementById('audioStatus');
+                if (status) status.textContent = '正在播放 ${speed}x';
+            } else {
+                audio.pause();
+                const status = document.getElementById('audioStatus');
+                if (status) status.textContent = '已暂停';
+            }
+        }
+
+        function showWave() { 
+            const wave = document.getElementById('audioWave');
+            if (wave) wave.style.opacity = '1'; 
+        }
+        
+        function hideWave() { 
+            const wave = document.getElementById('audioWave');
+            if (wave) wave.style.opacity = '0'; 
+        }
+
+        function switchDictation(level) {
+            document.querySelectorAll('.dictation-tab').forEach(tab => {
+                if (tab.dataset.level === level) {
+                    tab.classList.add('bg-white', 'text-orange-600', 'shadow-sm');
+                    tab.classList.remove('text-slate-600');
+                } else {
+                    tab.classList.remove('bg-white', 'text-orange-600', 'shadow-sm');
+                    tab.classList.add('text-slate-600');
+                }
+            });
+            
+            document.querySelectorAll('.dictation-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            const target = document.getElementById(`dictation-${level}`);
+            if (target) target.classList.remove('hidden');
+        }
+
+        function checkAnswers() {
+            document.querySelectorAll('.dictation-input').forEach(input => {
+                const answer = input.dataset.answer;
+                const value = input.value.trim().toLowerCase();
+                const resultDiv = input.closest('.flex-1')?.querySelector('.check-result');
+                if (!resultDiv) return;
+                
+                const correctSpan = resultDiv.querySelector('.correct-answer');
+                const wrongSpan = resultDiv.querySelector('.wrong-answer');
+                
+                resultDiv.classList.remove('hidden');
+                
+                if (value === answer) {
+                    input.classList.add('correct');
+                    input.classList.remove('wrong');
+                    if (correctSpan) correctSpan.classList.remove('hidden');
+                    if (wrongSpan) wrongSpan.classList.add('hidden');
+                } else {
+                    input.classList.add('wrong');
+                    input.classList.remove('correct');
+                    if (correctSpan) correctSpan.classList.add('hidden');
+                    if (wrongSpan) wrongSpan.classList.remove('hidden');
+                }
+            });
+        }
+
+        function showAnswers() {
+            document.querySelectorAll('.dictation-input').forEach(input => {
+                input.value = input.dataset.answer;
+                input.classList.add('correct');
+                input.classList.remove('wrong');
+                const resultDiv = input.closest('.flex-1')?.querySelector('.check-result');
+                if (resultDiv) resultDiv.classList.add('hidden');
+            });
+        }
+
+        function resetDictation() {
+            document.querySelectorAll('.dictation-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'wrong');
+                const resultDiv = input.closest('.flex-1')?.querySelector('.check-result');
+                if (resultDiv) resultDiv.classList.add('hidden');
+            });
+        }
+
+        function highlightVocabInText(text) {
+            if (!text) return '';
+            const vocabMap = {
+                'bandwidth': 'word-ielts-core',
+                'capacity': 'word-ielts-core',
+                'knock out': 'word-work',
+                'fixation': 'word-ielts-adv',
+                'palette': 'word-ielts-adv',
+                'acquire': 'word-ielts-core',
+                'overwhelmed': 'word-ielts-core',
+                'stagnant': 'word-ielts-adv',
+                'fruition': 'word-ielts-adv',
+                'therapeutic': 'word-ielts-adv',
+                'vanilla': 'word-daily',
+                'zucchini': 'word-daily',
+                'leftovers': 'word-daily',
+                'gonna': 'word-work',
+                'off the hook': 'word-work',
+                'throw on': 'word-work',
+                'good morning': 'word-daily',
+                'woke up': 'word-work',
+                'get coffee': 'word-daily',
+                'behind the scenes': 'word-ielts-core',
+                'ups and downs': 'word-work',
+                'turns out': 'word-ielts-core',
+                'on my own': 'word-work'
+            };
+            
+            let result = text;
+            Object.keys(vocabMap).forEach(word => {
+                const regex = new RegExp(`\\\\b${word}\\\\b`, 'gi');
+                result = result.replace(regex, `<span class="${vocabMap[word]}">$&</span>`);
+            });
+            return result;
+        }
+
+        function highlightVocabInChinese(text) {
+            if (!text) return '';
+            return text
+                .replace(/🔵/g, '<span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1"></span><span class="text-blue-600 font-semibold">')
+                .replace(/🟣/g, '<span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-1"></span><span class="text-purple-600 font-semibold">')
+                .replace(/🟠/g, '<span class="inline-block w-2 h-2 rounded-full bg-orange-500 mr-1"></span><span class="text-orange-600 font-semibold">')
+                .replace(/🟢/g, '<span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span><span class="text-green-600 font-semibold">')
+                .replace(/🔷/g, '<span class="inline-block w-2 h-2 rounded-full bg-cyan-500 mr-1"></span><span class="text-cyan-600 font-semibold">');
+        }
+
+        function speak(text) {
+            if (!text) return;
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('您的浏览器不支持语音朗读功能');
+            }
+        }
+
+        function playVideo() {
+            const video = document.querySelector('#section-video video');
+            if (video) video.play();
+        }
+
+        function previousCourse() {
+            const currentNum = parseInt(currentCourseId.replace('P', ''));
+            if (currentNum > 1) {
+                const prevId = 'P' + String(currentNum - 1).padStart(3, '0');
+                loadCourse(prevId);
+            }
+        }
+
+        function nextCourse() {
+            const currentNum = parseInt(currentCourseId.replace('P', ''));
+            if (currentNum < 365) {
+                const nextId = 'P' + String(currentNum + 1).padStart(3, '0');
+                loadCourse(nextId);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.mobile-overlay');
+            
+            if (sidebar && overlay) {
+                if (sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
